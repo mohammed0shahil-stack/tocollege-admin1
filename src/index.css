@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    @apply bg-surface-bg text-ink font-sans text-sm;
+  }
+  ::selection {
+    @apply bg-primary-soft text-primary-active;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary rounded;
+  }
+}
+
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+}
+
+/* Skeleton shimmer background (gradient direction awkward to express as pure utilities) */
+.skeleton-shimmer {
+  background: linear-gradient(100deg, #EEF0EF 30%, #F6F7F6 50%, #EEF0EF 70%);
+  background-size: 220% 100%;
+}
+
+/* Animated success checkmark (SVG stroke-draw needs an exact dasharray per path, kept in CSS) */
+.success-check circle {
+  fill: none; stroke: #0E6B47; stroke-width: 2;
+  stroke-dasharray: 166; stroke-dashoffset: 166;
+  animation: circleDraw .5s cubic-bezier(.4,0,.2,1) forwards;
+}
+.success-check path {
+  fill: none; stroke: #0E6B47; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 48; stroke-dashoffset: 48;
+  animation: checkDraw .35s cubic-bezier(.4,0,.2,1) .45s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
